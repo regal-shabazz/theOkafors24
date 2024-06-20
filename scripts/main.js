@@ -178,8 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (events.includes("pre-main") && events.includes("main")) {
       accessMessage = "This pass grants you entrance to both the Vow Ceremony and the Cocktail Hour & Dinner. (IVs both for events below)";
     } else if (events.includes("main")) {
-  
-    } else if (events.includes("main")) {
       accessMessage = "This pass grants you entrance to the Cocktail Hour & Dinner. (IV for this event below)";
     }
 
