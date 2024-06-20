@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     } else if (events.includes("main")) {
       accessMessage = "This pass grants you entrance to the Cocktail Hour & Dinner.";
+      ivMessage = "<p id=\"iv-message\"></p>";
     }
 
 
