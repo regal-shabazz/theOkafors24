@@ -1,0 +1,244 @@
+#rsvp-page {
+  background: url('../images/theokafors1.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: rgb(252, 252, 206);
+}
+
+#rsvp-page::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(252, 252, 206, 0.307);
+}
+
+#rsvp-page * {
+  z-index: 1;
+}
+
+#rsvp-page .container {
+  height: 100vh;
+  text-align: center;
+  position: relative;
+}
+
+#hero-bg {
+  background: url('../images/theokafors1.jpg');
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding-top: 40px;
+  font-size: 3rem;
+
+}
+
+
+#hero-bg::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(252, 252, 206, 0.307);
+}
+
+#rsvp-page .container p {
+ line-height: 1.5;
+}
+
+strong {
+  display: block;
+  margin-top: 20px;
+}
+
+.rsvp-query {
+  background-color: #fcfcce;
+  padding: 20px;
+  width: 100%;
+  position: absolute;
+  bottom: 100px;
+  max-width: 400px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  border-radius: 10px;
+}
+
+.rsvp-query h4 {
+  font-size: clamp(1.5rem, 2vw + 1rem, 2rem);
+  color: rgb(155, 181, 37);
+  color: #a1ad25;
+  margin-bottom: 20px;
+}
+
+.primary-rsvp-query {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.primary-rsvp-query input,
+.primary-rsvp-query button {
+  padding: 10px 20px;
+  display: inline-block;
+  width: 100%;
+  max-width: 405px;
+  border: none;
+  text-align: center;
+}
+
+#rsvp-response {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+#rsvp-response button {
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 405px;
+  display: inline-block;
+  border: none;
+}
+
+#msg {
+  color: rgb(245, 110, 110);
+  font-style: italic;
+  font-size: .7rem;
+  margin-bottom: 5px;
+  display: block;
+}
+
+#thank-you-page {
+  background-color: rgb(252, 252, 206);
+  color: rgb(155, 181, 37);
+  position: relative;
+}
+
+#thank-you-page .container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#thank-you-page .container p {
+  width: 100%;
+  max-width: 700px;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 3;
+  left: 0;
+  top: 0%;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 500px;
+}
+
+.close {
+  color: rgb(252, 252, 206);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  background-color: #a1ad25;
+  margin-left: 10px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input, .form-group textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid rgb(155, 181, 37);
+}
+
+.modal button {
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+}
+
+.modal select {
+  width: 100%;
+  padding: 10px 20px;
+  border: 1px solid rgb(155, 181, 37);
+}
+
+.modal h2 {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+#qrcode {
+  margin-top: 10px;
+}
+
+#download-qr {
+  margin-block: 10px 20px;
+}
+
+.modal h4 {
+  margin-block: 20px;
+}
+
+.modal h3 {
+  margin-bottom: 20px;
+}
+
+#iv-buttons button {
+  margin-bottom: 10px;
+}
+
+.donation-details p {
+  font-weight: 100;
+}
+
+#iv-message {
+  color: red;
+  font-size: .8rem;
+}

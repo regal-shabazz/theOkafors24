@@ -1,0 +1,18 @@
+.splash-screen {
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+  background-color: rgb(237, 237, 191);
+}
+
+.splash-screen .container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ss-logo {
+  width: 70%;
+  max-width: 500px;
+}

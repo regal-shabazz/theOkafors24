@@ -1,0 +1,39 @@
+#our-love-story-page {
+  background-color: #fcfcce;
+}
+
+#our-love-story-page .container {
+  padding-block: 2rem 4rem;
+}
+
+
+.story {
+  width: 100%;
+  max-width: 700px;
+  margin-inline: auto;
+  line-height: 2;
+  color: #a1ad25;
+}
+
+
+#image-container {
+  width: 100%;
+  max-width: 700px;
+  height: 300px;
+  margin-inline: auto;
+  background-image: url('../images/theokafors2.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  margin-block: 30px;
+  box-shadow: 0 0 10px 1px rgba(89, 126, 57, 0.464);
+}
+
+#left {
+  margin-top: 20px;
+}
+
+#right {
+  margin-bottom: 100px;
+}

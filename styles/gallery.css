@@ -1,0 +1,64 @@
+#gallery-container {
+  padding-block: 50px;
+}
+
+.image-container {
+  margin-bottom: 40px;
+}
+
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
+button {
+  display: block;
+  margin-top: 20px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-inline: auto;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive Layout */
+@media (min-width: 768px) {
+  /* 3 images per row on tablets and desktops */
+  #gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .image-container {
+    width: calc(33.33% - 10px); /* 3 images per row, with spacing */
+    margin-bottom: 20px;
+  }
+}
+
+@media (min-width: 992px) {
+  /* 4 images per row on large desktops */
+  .image-container {
+    width: calc(25% - 10px); /* 4 images per row, with spacing */
+  }
+}
+
+@media (max-width: 767px) {
+  /* 2 images per row on mobile devices */
+  #gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .image-container {
+    width: calc(50% - 10px); /* 2 images per row, with spacing */
+  }
+}

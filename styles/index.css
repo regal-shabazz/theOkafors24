@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button, input[type="text"], select {
+  appearance: none; /* Remove default styles */
+  -webkit-appearance: none; /* Remove default styles in Safari */
+  -moz-appearance: none; /* Remove default styles in Firefox */
+  border-radius: 0; /* Remove rounded corners */
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  background-color: rgb(252, 252, 206);
+}
+
+.container {
+ width: 90%;
+ max-width: 1024px;
+ margin-inline: auto;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(155, 181, 37);
+  color: #A1Ad25;
+}
+
+button {
+  background-color:  rgb(155, 181, 37);
+  color: rgb(252, 252, 206);
+}
+
+#countdown-container {
+  text-align: center;
+  padding-block: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(252, 252, 206);
+  font-size: 14px;
+  color: rgb(14, 121, 14);
+}

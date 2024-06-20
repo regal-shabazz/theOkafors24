@@ -1,0 +1,30 @@
+#proof-of-payment-section .container  {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100vh;
+  padding-top: 30px;
+}
+
+.container > div {
+  width: 100%;
+  max-width: 600px;
+}
+
+h2 {
+  text-align: center;
+  color: #a1ad25;
+}
+
+button {
+  border: 0;
+  outline: none;
+  padding: 10px 20px;
+  display: block;
+  margin-inline: auto;
+}
+
+#donation-details {
+  text-align: center;
+  margin-block: 20px;
+}
