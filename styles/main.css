@@ -242,3 +242,8 @@ strong {
   color: red;
   font-size: .8rem;
 }
+
+
+.hide {
+  display: none;
+}

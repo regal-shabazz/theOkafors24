@@ -192,12 +192,12 @@ document.addEventListener("DOMContentLoaded", () => {
         <button id="download-qr">Download QR Code</button>
         <div class="donation-details">
           <h3>Celebrating With Us?</h3>
-          <p>Your presence at our event is the best gift we could ask for. If you’d like to go the extra mile, here are some details:</p>
-          <p><strong>Bank Account Details:</strong></p>
-          <p>0107527850 (GTB) - Obinna Okafor</p>
-          <p>2130912288 (UBA) - Precious Ike</p>
-          <p><strong>Zelle:</strong> obinna.c.okafor@gmail.com</p>
-          <p><strong>Cashapp:</strong> $Obi1Cash</p>
+          <p>Click <a style="font-style: italic; color: #f56e6e" href="./pages/proofofpayment.html" target="_blank">Here</a> to gift us.</p>
+          <p class="hide"><strong>Bank Account Details:</strong></p>
+          <p class="hide">0107527850 (GTB) - Obinna Okafor</p>
+          <p class="hide">2130912288 (UBA) - Precious Ike</p>
+          <p class="hide"><strong>Zelle:</strong> obinna.c.okafor@gmail.com</p>
+          <p class="hide"><strong>Cashapp:</strong> $Obi1Cash</p>
           <h4>Thank you for your support!</h4>
         </div>
         
