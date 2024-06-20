@@ -1,0 +1,11 @@
+{
+  "name": "theokafors24",
+  "version": "1.0.0",
+  "description": "RSVP website with database and QR code integration.",
+  "main": "index.html",
+  "scripts": {
+    "test": "live-server"
+  },
+  "author": "Babatunde Oshin (Regal Shabazz)",
+  "license": "ISC"
+}

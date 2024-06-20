@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>The Okafors 24</title>
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"/>
+    <!-- styles -->
+     <!-- general -->
+     <link rel="stylesheet" href="./styles/index.css">
+     <!-- splashscreen -->
+     <link rel="stylesheet" href="./styles/splashscreen.css">
+      <!-- header -->
+       <link rel="stylesheet" href="./styles/header.css">
+     <!-- main -->
+      <link rel="stylesheet" href="./styles/main.css">
+     <!-- footer -->
+      <link rel="stylesheet" href="./styles/footer.css">
+  </head>
+  <body>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyACTuYpnLld325FPWB2MxA_QwLpdqvOSUA",
+        authDomain: "preciousobinna24-deed8.firebaseapp.com",
+        projectId: "preciousobinna24-deed8",
+        storageBucket: "preciousobinna24-deed8.appspot.com",
+        messagingSenderId: "991734324907",
+        appId: "1:991734324907:web:3f1bae1214377ae21861ee",
+        measurementId: "G-BBD9R6NKRB",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+      const db = getFirestore(app);
+
+      // Make the Firestore db available globally
+      window.db = db;
+      window.collection = collection;
+      window.addDoc = addDoc;
+    </script>
+
+    <div class="splash-screen">
+      <div class="container">
+        <img src="./images/PO_Primary.png" alt="wedding logo" class="ss-logo" />
+      </div>
+    </div>
+    <script type="module" src="./scripts/main.js"></script>
+  </body>
+</html>
