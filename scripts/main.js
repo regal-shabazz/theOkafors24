@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const HEADER = `
     <header>
       <div class="container">
-        <a href="../index.html"><img src="./images/PO-HD_Secondary.png" 
+        <a href="./index.html"><img src="./images/PO-HD_Secondary.png" 
         alt="header logo"></a>
       </div>
     </header>
