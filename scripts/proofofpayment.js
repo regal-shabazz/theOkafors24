@@ -59,8 +59,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <section id="proof-of-payment-section">
       <div class="container">
         <div>
-         <h2>Proof of Donation</h2>
-        <form id="payment-proof-form">
+         <h2 style="display: none;">Proof of Donation</h2>
+        <form id="payment-proof-form" style="display: none;">
           <div class="form-group">
             <label for="donor-name">Name:</label>
             <input type="text" id="donor-name" name="name" placeholder="Your Name" required>
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </form>
 
          <div id="donation-details">
-          <h3>Donation details</h3>
+          <h3>For Gifting</h3>
           <span id="details">
             <span id="bank-account">
               <p><strong>Bank Account Details:</strong></p>
