@@ -372,7 +372,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function validateInviteCode(code) {
     // Replace this with your actual validation logic
-    const validCodes = ["PREMAIN123", "SPECIALGUEST456"];
+    const validCodes = ["vow24"];
     return validCodes.includes(code);
   }
 
