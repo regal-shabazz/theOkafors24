@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const BUTTONS = `
     <div id="show-buttons">
       <button id="show-guest-list-button">Show Guest List</button>
-      <button id="show-donations-button">Show Donations</button>
+      <button id="show-donations-button" style="display: none;">Show Donations</button>
     </div>
     `;
 
