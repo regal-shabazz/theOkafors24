@@ -24,7 +24,7 @@ const NAV = `
         <li><a href="../index.html">Home</a></li>
        
         <li><a href="../pages/ourstory.html">Our Story</a></li>
-        <li><a href="../pages/proofofpayment.html">Donations</a></li>
+        <li><a href="../pages/proofofpayment.html">Gifting</a></li>
         <li><a href="../pages/admin.html">Admin</a></li>
       </ul>
     </nav>
