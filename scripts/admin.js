@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Function to validate login credentials
   function validateLogin(username, password) {
     // Replace with your actual admin credentials
-    const adminUsername = "admin";
-    const adminPassword = "admin123";
+    const adminUsername = "preciousokafor1";
+    const adminPassword = "okaforp1";
     return username === adminUsername && password === adminPassword;
   }
 
