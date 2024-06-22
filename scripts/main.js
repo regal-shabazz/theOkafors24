@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p class="hide">2130912288 (UBA) - Precious Ike</p>
           <p class="hide"><strong>Zelle:</strong> obinna.c.okafor@gmail.com</p>
           <p class="hide"><strong>Cashapp:</strong> $Obi1Cash</p>
-          <h4>Thank you for your support!</h4>
+          <h4 class="hide">Thank you for your support!</h4>
         </div>
         
         <div id="iv-buttons">
