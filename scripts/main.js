@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <button id="download-qr">Download QR Code</button>
         <div class="donation-details">
           <h3>Celebrating With Us?</h3>
-          <p>Click <a style="font-style: italic; color: #f56e6e" href="./pages/proofofpayment.html" target="_blank">Here</a> to gift us.</p>
+          <p>Click <a style="font-style: italic; color: #f56e6e; margin-bottom: 20px" href="./pages/proofofpayment.html" target="_blank">Here</a> to gift us.</p>
           <p class="hide"><strong>Bank Account Details:</strong></p>
           <p class="hide">0107527850 (GTB) - Obinna Okafor</p>
           <p class="hide">2130912288 (UBA) - Precious Ike</p>
