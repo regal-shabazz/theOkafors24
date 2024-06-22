@@ -1,7 +1,7 @@
 #proof-of-payment-section .container  {
   display: flex;
   justify-content: center;
-  align-items: start;
+  align-items: center;
   height: 100vh;
   padding-top: 30px;
   color: #a1ad25;

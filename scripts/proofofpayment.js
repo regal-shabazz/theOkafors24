@@ -90,8 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
               <p><strong>Cashapp:</strong> $Obi1Cash</p>
             </span>
           </span>
-         
-          <h4>Thank you for your support!</h4>
         </div>
         </div>
        
