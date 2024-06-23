@@ -156,23 +156,24 @@ document.addEventListener("DOMContentLoaded", () => {
             </select>
           </div>
           <button type="submit">Submit</button>
+          <p id="feedback-message" style="display:none; color: green;">Please wait, your code is being generated...</p>
         </form>
       </div>
     `;
-
+  
     BODY.appendChild(modal);
-
+  
     const closeButton = modal.querySelector(".close");
     closeButton.addEventListener("click", () => {
       modal.remove();
     });
-
+  
     window.addEventListener("click", (event) => {
       if (event.target == modal) {
         modal.remove();
       }
     });
-
+  
     document.getElementById(formId).addEventListener("submit", submitHandler);
   }
 
@@ -327,7 +328,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("accept-modal");
     const name = document.getElementById("name").value;
     const sideOfFamily = document.getElementById("side-of-family").value;
-
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const feedbackMessage = document.getElementById("feedback-message");
+  
+    submitButton.disabled = true; // Disable the submit button
+    feedbackMessage.style.display = "block"; // Show the feedback message
+  
     try {
       await addDoc(collection(db, "guests"), {
         name: name,
@@ -341,10 +347,13 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) {
       console.error("Error adding document: ", e);
       alert("An error occurred. Please try again.");
+      submitButton.disabled = false; // Re-enable the submit button if there's an error
+      feedbackMessage.style.display = "none"; // Hide the feedback message if there's an error
     } finally {
       modal.remove();
     }
   }
+  
 
   // async function handleDeclineSubmit(event) {
   //   event.preventDefault();
@@ -389,7 +398,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("accept-modal");
     const name = document.getElementById("name").value;
     const sideOfFamily = document.getElementById("side-of-family").value;
-
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const feedbackMessage = document.getElementById("feedback-message");
+  
+    submitButton.disabled = true; // Disable the submit button
+    feedbackMessage.style.display = "block"; // Show the feedback message
+  
     try {
       await addDoc(collection(db, "guests"), {
         name: name,
@@ -403,6 +417,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) {
       console.error("Error adding document: ", e);
       alert("An error occurred. Please try again.");
+      submitButton.disabled = false; // Re-enable the submit button if there's an error
+      feedbackMessage.style.display = "none"; // Hide the feedback message if there's an error
     } finally {
       modal.remove();
     }
