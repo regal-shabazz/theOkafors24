@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <div id="countdown"></div>
       </div>
       </div>
-    
     </div>
   `;
 
