@@ -50,21 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
   `;
 
   const COUNTDOWN = `
-   <div id="countdown-container">
-  <div class="slide">
-    <div id="info">
-      <h3>Colours of The Day</h3>
-      <p>Formal Attire in Lavender, Burnt Orange, Blue, Black</p>
-    </div>
-  </div>
-  <div class="slide">
-    <div id="countdown-content">
-      <h5>Countdown to The Big Day</h5>
+    <div id="countdown-container">
+      <h5>Countdown to the Big Day</h5>
       <div id="countdown"></div>
     </div>
-  </div>
-</div>
-
   `;
 
   const MAIN = `
