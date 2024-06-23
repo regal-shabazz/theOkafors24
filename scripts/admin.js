@@ -3,6 +3,8 @@ import {
   getFirestore,
   collection,
   getDocs,
+  deleteDoc,
+  doc,
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
@@ -94,6 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <option value="pre-main">Vow Ceremony</option>
           <option value="main">Cocktail Hour and Dinner</option>
         </select>
+        <p style="color: red; font-size: .9rem; margin-bottom: 20px; font-style: italic">(Choose event then click "Show Guest List")
 
         <p id="guest-count">Total Guests: 0</p> <!-- Guest count element -->
       </div>
@@ -186,6 +189,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <th>Guest</th>
             <th>Side of Family</th>
             <th>Event Attending</th>
+            <th>Actions</th>
           </tr>
         </thead>
       `;
@@ -219,6 +223,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <td>${guestData.name}</td>
             <td>${guestData.sideOfFamily}</td>
             <td>${eventInfo}</td>
+            <td style="text-align: center; color: red;"><i class="fas fa-trash delete-icon" data-id="${doc.id}"></i></td>
           `;
           tableBody.appendChild(row);
           filteredCount++; // Increment filtered count for the next item
@@ -229,9 +234,26 @@ document.addEventListener("DOMContentLoaded", async () => {
       table.appendChild(tableBody);
       guestList.appendChild(table);
 
-      // Update guest count
+      // Update guest count display
       const guestCountElement = document.getElementById("guest-count");
       guestCountElement.textContent = `Total Guests: ${filteredCount}`;
+
+      // Add event listener to delete icons
+      document.querySelectorAll(".delete-icon").forEach((icon) => {
+        icon.addEventListener("click", async (event) => {
+          const docId = event.target.getAttribute("data-id");
+          const password = prompt(
+            "Please enter the admin password to delete this entry:"
+          );
+
+          if (password === "okaforp1") {
+            await deleteDoc(doc(db, "guests", docId));
+            renderGuestData(); // Re-render guest data after deletion
+          } else {
+            alert("Incorrect password. Deletion not allowed.");
+          }
+        });
+      });
     } catch (error) {
       console.error("Error getting guest data:", error);
     }
@@ -255,10 +277,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       const tableHead = `
         <thead>
           <tr>
-                       
             <th>Name</th>
             <th>Phone Number</th>
             <th>Proof of Donation</th>
+            <th>Actions</th>
           </tr>
         </thead>
       `;
@@ -274,15 +296,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (donorName.includes(searchValue)) {
           const row = document.createElement("tr");
           row.innerHTML = `
-         
             <td>${donationData.name}</td>
             <td>${donationData.phone}</td>
             <td><button class="proof-button" data-url="${donationData.proofURL}">View Proof</button></td>
+            <td style="text-align: center; color: red;"><i class="fas fa-trash delete-icon" data-id="${doc.id}"></i></td>
           `;
           tableBody.appendChild(row);
-
-
-          
         }
       });
 
@@ -290,11 +309,28 @@ document.addEventListener("DOMContentLoaded", async () => {
       donationsList.appendChild(table);
 
       // Add event listener to proof buttons
-      document.querySelectorAll(".proof-button").forEach(button => {
+      document.querySelectorAll(".proof-button").forEach((button) => {
         button.addEventListener("click", async (event) => {
           const url = event.target.getAttribute("data-url");
           const imageUrl = await getDownloadURL(ref(storage, url));
           showModal(imageUrl);
+        });
+      });
+
+      // Add event listener to delete icons
+      document.querySelectorAll(".delete-icon").forEach((icon) => {
+        icon.addEventListener("click", async (event) => {
+          const docId = event.target.getAttribute("data-id");
+          const password = prompt(
+            "Please enter the admin password to delete this entry:"
+          );
+
+          if (password === "okaforp1") {
+            await deleteDoc(doc(db, "donations", docId));
+            renderDonationsData(); // Re-render donations data after deletion
+          } else {
+            alert("Incorrect password. Deletion not allowed.");
+          }
         });
       });
     } catch (error) {
