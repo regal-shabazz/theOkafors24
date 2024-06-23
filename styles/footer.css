@@ -1,13 +1,51 @@
-#countdown-container {
-  text-align: center;
-  padding-block: 10px;
+footer {
   position: fixed;
   bottom: 0;
+  margin-inline: auto;
+  left: 0;
   width: 100%;
   background-color: rgb(252, 252, 206);
-  font-size: 14px;
-  color: rgb(14, 121, 14);
-  color: rgb(155, 181, 37);
   z-index: 2;
+  font-size: 14px;
 }
 
+footer .container {
+  position: relative;
+  height: 70px;
+}
+
+#countdown-container,
+#info {
+  text-align: center;
+  padding-block: 10px;
+  width: 100%;
+  position: absolute;
+  /* color: rgb(14, 121, 14); */
+  color: rgb(155, 181, 37);
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 100%;
+  animation: slide 16s linear infinite;
+}
+
+@keyframes slide {
+  0% {
+    left: 100%;
+  }
+  25% {
+    left: 0;
+  }
+  50% {
+    left: 0;
+  }
+  75% {
+    left: -100%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+
+#countdown-container {
+  animation-delay: 8s; /* Half of the total cycle */
+}

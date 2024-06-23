@@ -37,13 +37,3 @@ button {
   color: rgb(252, 252, 206);
 }
 
-#countdown-container {
-  text-align: center;
-  padding-block: 10px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: rgb(252, 252, 206);
-  font-size: 14px;
-  color: rgb(14, 121, 14);
-}
