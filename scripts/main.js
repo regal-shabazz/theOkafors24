@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
      <footer>
     <div class="container">
       <div id="info">
-        <h4>Colors of the Day</h4>
+        <h4>Colours of the Day</h4>
         <p><i>Formal Attire</i>: Lavender, Burnt Orange, Blue, Black</p>
       </div>
       <div id="countdown-container">
