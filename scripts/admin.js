@@ -1,4 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   getFirestore,
   collection,
@@ -23,8 +24,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const storage = getStorage(app);
+const auth = getAuth(app);
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   const BODY = document.querySelector("body");
   const MAIN_CONTAINER = document.querySelector("main .container");
 
@@ -44,40 +46,35 @@ document.addEventListener("DOMContentLoaded", async () => {
     <section id="login-section">
       <h2>Login</h2>
       <form id="login-form">
-        <input type="text" id="username" placeholder="Username" required>
+        <input type="email" id="email" placeholder="Email" required>
         <input type="password" id="password" placeholder="Password" required>
         <button type="submit">Login</button>
       </form>
-      <p id="login-error" style="color: red; display: none;">Invalid username or password</p>
+      <p id="login-error" style="color: red; display: none;">Invalid email or password</p>
     </section>
   `;
 
   // Render Header and Login Form
   BODY.innerHTML = HEADER + LOGIN_FORM + MAIN;
 
-  // Function to validate login credentials
-  function validateLogin(username, password) {
-    // Replace with your actual admin credentials
-    const adminUsername = "preciousokafor1";
-    const adminPassword = "okaforp1";
-    return username === adminUsername && password === adminPassword;
-  }
-
   // Event listener for login form submission
   const loginForm = document.getElementById("login-form");
-  loginForm.addEventListener("submit", (event) => {
+  loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const loginError = document.getElementById("login-error");
 
-    if (validateLogin(username, password)) {
+    try {
+      // Sign in user with Firebase Authentication
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       // Render admin page if login is successful
       BODY.innerHTML = HEADER + MAIN;
       renderAdminPage();
-    } else {
+    } catch (error) {
       // Display error message if login fails
       loginError.style.display = "block";
+      console.error("Error signing in:", error.message);
     }
   });
 
@@ -165,7 +162,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
   }
 
-  async function renderGuestData() {
+ async function renderGuestData() {
     try {
       const searchValue = document
         .getElementById("search-input")
