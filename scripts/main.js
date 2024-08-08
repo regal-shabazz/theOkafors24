@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <h2 id="hero-bg"></h2>
 
           <div class="rsvp-query">
-            <h4>RSVP Closed</h4>
+            <h4>RSVP CLOSED</h4>
 
              <div class="primary-rsvp-query">
             <input type="text" id="invite-code-input" placeholder="Invite code">
