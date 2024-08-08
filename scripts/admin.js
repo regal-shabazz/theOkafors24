@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Admin page content
     const ADMIN_CONTENT = `
-      <section id="admin-section">
+      <section id="admin-section" style="margin-bottom: 100px">
         <div id="guest-list" class="container" style="display:none;">
           <!-- Guest list will be rendered here -->
         </div>
