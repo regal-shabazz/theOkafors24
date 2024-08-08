@@ -191,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
       guestList.innerHTML = ""; // Clear previous content
       let count = 0; // Initialize count
       let filteredCount = 0; // Initialize filtered count
-
+  
       // Create table and table headers
       const table = document.createElement("table");
       table.setAttribute("class", "guest-table");
@@ -207,16 +207,17 @@ document.addEventListener("DOMContentLoaded", () => {
         </thead>
       `;
       table.innerHTML = tableHead;
-
+  
       const tableBody = document.createElement("tbody");
-
-      const guestDataArray = []; // Array to store guest data for CSV
-
+  
+      // Array to store guest data for sorting
+      const guestDataArray = [];
+  
       querySnapshot.forEach((doc) => {
         const guestData = doc.data();
         const guestName = guestData.name.toLowerCase();
         let eventInfo = "";
-
+  
         // Determine the event type to display and apply filtering criteria
         if (
           filterValue === "pre-main" &&
@@ -229,38 +230,53 @@ document.addEventListener("DOMContentLoaded", () => {
         ) {
           eventInfo = "Cocktail Hour and Dinner";
         }
-
+  
         // Apply search and filter criteria
         if (eventInfo && guestName.includes(searchValue)) {
-          const row = document.createElement("tr");
-          row.innerHTML = `
-            <td>${filteredCount + 1}</td>
-            <td>${guestData.name}</td>
-            <td>${guestData.sideOfFamily}</td>
-            <td>${eventInfo}</td>
-            <td style="text-align: center; color: red;"><i class="fas fa-trash delete-icon" data-id="${doc.id}"></i></td>
-          `;
-          tableBody.appendChild(row);
-
-          // Add guest data to array for CSV
           guestDataArray.push({
+            id: doc.id,
             name: guestData.name,
             sideOfFamily: guestData.sideOfFamily,
             event: eventInfo,
           });
-
-          filteredCount++; // Increment filtered count for the next item
+          filteredCount++; // Increment filtered count
         }
         count++; // Increment total count
       });
+  
+      // Sort the guest data array alphabetically by guest name
+      guestDataArray.sort((a, b) => a.name.localeCompare(b.name));
+  
+     // Render the sorted guest data and prepare for CSV download
+guestDataArray.forEach((guestData, index) => {
+  const row = document.createElement("tr");
+  row.innerHTML = `
+    <td>${index + 1}</td>
+    <td>${guestData.name}</td>
+    <td>${guestData.sideOfFamily}</td>
+    <td>${guestData.event}</td>
+    <td style="text-align: center; color: red;">
+      <i class="fas fa-trash delete-icon" data-id="${guestData.id}"></i>
+    </td>
+  `;
+  tableBody.appendChild(row);
 
+  // Add guest data to array for CSV with serial number as the ID
+  guestDataArray[index] = {
+    id: index + 1, // Serial number as ID
+    name: guestData.name,
+    sideOfFamily: guestData.sideOfFamily,
+    event: guestData.event,
+  };
+});
+  
       table.appendChild(tableBody);
       guestList.appendChild(table);
-
+  
       // Update guest count
       const guestCount = document.getElementById("guest-count");
       guestCount.textContent = `Total Guests: ${filteredCount}`;
-
+  
       // Add delete functionality to each delete icon
       const deleteIcons = document.querySelectorAll(".delete-icon");
       deleteIcons.forEach((icon) => {
@@ -268,13 +284,13 @@ document.addEventListener("DOMContentLoaded", () => {
           const guestId = e.target.getAttribute("data-id");
           try {
             await deleteDoc(doc(db, "guests", guestId));
-            renderGuestData();
+            renderGuestData(); // Re-render the guest data after deletion
           } catch (error) {
             console.error("Error deleting guest:", error);
           }
         });
       });
-
+  
       // Save guest data array for download
       localStorage.setItem("guestDataArray", JSON.stringify(guestDataArray));
     } catch (error) {
