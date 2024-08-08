@@ -26,6 +26,8 @@ const db = getFirestore(app);
 const storage = getStorage(app);
 const auth = getAuth(app);
 
+// Your existing imports and Firebase configuration
+
 document.addEventListener("DOMContentLoaded", () => {
   const BODY = document.querySelector("body");
   const MAIN_CONTAINER = document.querySelector("main .container");
@@ -94,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <option value="main">Cocktail Hour and Dinner</option>
         </select>
         <p style="color: red; font-size: .9rem; margin-bottom: 20px; font-style: italic">(Choose event then click "Show Guest List")
-
         <p id="guest-count">Total Guests: 0</p> <!-- Guest count element -->
       </div>
     `;
@@ -103,6 +104,8 @@ document.addEventListener("DOMContentLoaded", () => {
     <div id="show-buttons">
       <button id="show-guest-list-button">Show Guest List</button>
       <button id="show-donations-button" style="display: none;">Show Donations</button>
+      <button id="download-guest-list-button" style="display: none;">Download Guest List</button>
+      <button id="download-donations-list-button" style="display: none;">Download Donations List</button>
     </div>
     `;
 
@@ -147,7 +150,9 @@ document.addEventListener("DOMContentLoaded", () => {
       .addEventListener("click", () => {
         document.getElementById("guest-list").style.display = "block";
         document.getElementById("donations-list").style.display = "none";
-        document.getElementById("info").style.display = "block"
+        document.getElementById("info").style.display = "block";
+        document.getElementById("download-guest-list-button").style.display = "block";
+        document.getElementById("download-donations-list-button").style.display = "none";
         renderGuestData();
       });
 
@@ -157,12 +162,23 @@ document.addEventListener("DOMContentLoaded", () => {
       .addEventListener("click", () => {
         document.getElementById("guest-list").style.display = "none";
         document.getElementById("donations-list").style.display = "block";
-        document.getElementById("info").style.display = "none"
+        document.getElementById("info").style.display = "none";
+        document.getElementById("download-guest-list-button").style.display = "none";
+        document.getElementById("download-donations-list-button").style.display = "block";
         renderDonationsData();
       });
+
+    // Event listeners for download buttons
+    document
+      .getElementById("download-guest-list-button")
+      .addEventListener("click", downloadGuestList);
+
+    document
+      .getElementById("download-donations-list-button")
+      .addEventListener("click", downloadDonationsList);
   }
 
- async function renderGuestData() {
+  async function renderGuestData() {
     try {
       const searchValue = document
         .getElementById("search-input")
@@ -194,6 +210,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const tableBody = document.createElement("tbody");
 
+      const guestDataArray = []; // Array to store guest data for CSV
+
       querySnapshot.forEach((doc) => {
         const guestData = doc.data();
         const guestName = guestData.name.toLowerCase();
@@ -223,6 +241,14 @@ document.addEventListener("DOMContentLoaded", () => {
             <td style="text-align: center; color: red;"><i class="fas fa-trash delete-icon" data-id="${doc.id}"></i></td>
           `;
           tableBody.appendChild(row);
+
+          // Add guest data to array for CSV
+          guestDataArray.push({
+            name: guestData.name,
+            sideOfFamily: guestData.sideOfFamily,
+            event: eventInfo,
+          });
+
           filteredCount++; // Increment filtered count for the next item
         }
         count++; // Increment total count
@@ -231,28 +257,28 @@ document.addEventListener("DOMContentLoaded", () => {
       table.appendChild(tableBody);
       guestList.appendChild(table);
 
-      // Update guest count display
-      const guestCountElement = document.getElementById("guest-count");
-      guestCountElement.textContent = `Total Guests: ${filteredCount}`;
+      // Update guest count
+      const guestCount = document.getElementById("guest-count");
+      guestCount.textContent = `Total Guests: ${filteredCount}`;
 
-      // Add event listener to delete icons
-      document.querySelectorAll(".delete-icon").forEach((icon) => {
-        icon.addEventListener("click", async (event) => {
-          const docId = event.target.getAttribute("data-id");
-          const password = prompt(
-            "Please enter the admin password to delete this entry:"
-          );
-
-          if (password === "okaforp1") {
-            await deleteDoc(doc(db, "guests", docId));
-            renderGuestData(); // Re-render guest data after deletion
-          } else {
-            alert("Incorrect password. Deletion not allowed.");
+      // Add delete functionality to each delete icon
+      const deleteIcons = document.querySelectorAll(".delete-icon");
+      deleteIcons.forEach((icon) => {
+        icon.addEventListener("click", async (e) => {
+          const guestId = e.target.getAttribute("data-id");
+          try {
+            await deleteDoc(doc(db, "guests", guestId));
+            renderGuestData();
+          } catch (error) {
+            console.error("Error deleting guest:", error);
           }
         });
       });
+
+      // Save guest data array for download
+      localStorage.setItem("guestDataArray", JSON.stringify(guestDataArray));
     } catch (error) {
-      console.error("Error getting guest data:", error);
+      console.error("Error rendering guest data:", error);
     }
   }
 
@@ -266,7 +292,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const querySnapshot = await getDocs(donationsRef);
       const donationsList = document.getElementById("donations-list");
       donationsList.innerHTML = ""; // Clear previous content
-      donationsList.style.display = "block";
 
       // Create table and table headers
       const table = document.createElement("table");
@@ -274,9 +299,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const tableHead = `
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Phone Number</th>
-            <th>Proof of Donation</th>
+            <th>#</th>
+            <th>Donor Name</th>
+            <th>Amount</th>
+            <th>Message</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -285,77 +311,99 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const tableBody = document.createElement("tbody");
 
-      querySnapshot.forEach((doc, index) => {
-        const donationData = doc.data();
-        const donorName = donationData.name.toLowerCase();
+      const donationsDataArray = []; // Array to store donations data for CSV
+      let count = 0;
 
-        // Apply search criteria
+      querySnapshot.forEach((doc) => {
+        const donationData = doc.data();
+        const donorName = donationData.donorName.toLowerCase();
+
         if (donorName.includes(searchValue)) {
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td>${donationData.name}</td>
-            <td>${donationData.phone}</td>
-            <td><button class="proof-button" data-url="${donationData.proofURL}">View Proof</button></td>
+            <td>${count + 1}</td>
+            <td>${donationData.donorName}</td>
+            <td>$${donationData.amount}</td>
+            <td>${donationData.message}</td>
             <td style="text-align: center; color: red;"><i class="fas fa-trash delete-icon" data-id="${doc.id}"></i></td>
           `;
           tableBody.appendChild(row);
+
+          // Add donations data to array for CSV
+          donationsDataArray.push({
+            donorName: donationData.donorName,
+            amount: donationData.amount,
+            message: donationData.message,
+          });
+
+          count++;
         }
       });
 
       table.appendChild(tableBody);
       donationsList.appendChild(table);
 
-      // Add event listener to proof buttons
-      document.querySelectorAll(".proof-button").forEach((button) => {
-        button.addEventListener("click", async (event) => {
-          const url = event.target.getAttribute("data-url");
-          const imageUrl = await getDownloadURL(ref(storage, url));
-          showModal(imageUrl);
-        });
-      });
-
-      // Add event listener to delete icons
-      document.querySelectorAll(".delete-icon").forEach((icon) => {
-        icon.addEventListener("click", async (event) => {
-          const docId = event.target.getAttribute("data-id");
-          const password = prompt(
-            "Please enter the admin password to delete this entry:"
-          );
-
-          if (password === "okaforp1") {
-            await deleteDoc(doc(db, "donations", docId));
-            renderDonationsData(); // Re-render donations data after deletion
-          } else {
-            alert("Incorrect password. Deletion not allowed.");
+      // Add delete functionality to each delete icon
+      const deleteIcons = document.querySelectorAll(".delete-icon");
+      deleteIcons.forEach((icon) => {
+        icon.addEventListener("click", async (e) => {
+          const donationId = e.target.getAttribute("data-id");
+          try {
+            await deleteDoc(doc(db, "donations", donationId));
+            renderDonationsData();
+          } catch (error) {
+            console.error("Error deleting donation:", error);
           }
         });
       });
+
+      // Save donations data array for download
+      localStorage.setItem(
+        "donationsDataArray",
+        JSON.stringify(donationsDataArray)
+      );
     } catch (error) {
-      console.error("Error getting donation data:", error);
+      console.error("Error rendering donations data:", error);
     }
   }
 
-  function showModal(imageUrl) {
-    const modal = document.createElement("div");
-    modal.setAttribute("class", "modal");
-    modal.innerHTML = `
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <img src="${imageUrl}" alt="Proof of Donation">
-      </div>
-    `;
-    document.body.appendChild(modal);
+  // Function to convert data array to CSV and trigger download
+  function convertToCSV(data) {
+    const headers = Object.keys(data[0]).join(",");
+    const rows = data
+      .map((item) =>
+        Object.values(item)
+          .map((value) => `"${value}"`)
+          .join(",")
+      )
+      .join("\n");
+    return `${headers}\n${rows}`;
+  }
 
-    // Add event listener to close button
-    modal.querySelector(".close-button").addEventListener("click", () => {
-      modal.remove();
-    });
+  function downloadCSV(filename, csvContent) {
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
-    // Add event listener to close modal when clicking outside of content
-    modal.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.remove();
-      }
-    });
+  function downloadGuestList() {
+    const guestDataArray = JSON.parse(localStorage.getItem("guestDataArray"));
+    if (guestDataArray.length === 0) return alert("No guest data available.");
+    const csvContent = convertToCSV(guestDataArray);
+    downloadCSV("guest_list.csv", csvContent);
+  }
+
+  function downloadDonationsList() {
+    const donationsDataArray = JSON.parse(
+      localStorage.getItem("donationsDataArray")
+    );
+    if (donationsDataArray.length === 0)
+      return alert("No donations data available.");
+    const csvContent = convertToCSV(donationsDataArray);
+    downloadCSV("donations_list.csv", csvContent);
   }
 });
