@@ -75,14 +75,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
              <div class="primary-rsvp-query">
             <input type="text" id="invite-code-input" placeholder="Invite code">
-            <button id="submit-code">YES! I'll be attending!</button>
+            <button id="submit-code" disabled="true">YES! I'll be attending!</button>
           </div>
 
              <span id="msg">
               <p>If you do not have an invite code, kindly RSVP below.</p>
             </span>
             <div id="rsvp-response">
-              <button id="accept-button">Joyfully Accept!</button>     
+              <button id="accept-button" disabled="true">Joyfully Accept!</button>     
             </div>
           </div>
         </div>
