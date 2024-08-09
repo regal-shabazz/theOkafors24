@@ -3,6 +3,9 @@
   width: 100%;
   z-index: 9999;
   background-color: rgb(237, 237, 191);
+  background-image: url('../images/pic2.jpg');
+  background-position: center;
+  background-size: cover;
 }
 
 .splash-screen .container {
@@ -15,4 +18,20 @@
 .ss-logo {
   width: 70%;
   max-width: 500px;
+}
+
+.splash-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the opacity for darkness */
+  z-index: 1; /* Ensure the overlay is above the image but below the content */
+}
+
+.splash-screen > * {
+  position: relative;
+  z-index: 2; /* Ensure content is above the overlay */
 }
