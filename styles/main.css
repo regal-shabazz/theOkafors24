@@ -57,11 +57,11 @@ strong {
 }
 
 .rsvp-query {
-  background-color: #fcfcce;
+  background-color: #fcfcce7d;
   padding: 20px;
   width: 100%;
   position: absolute;
-  bottom: 100px;
+  bottom: 50px;
   max-width: 400px;
   left: 50%;
   transform: translate(-50%, 0);
