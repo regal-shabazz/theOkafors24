@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitButton = event.target.querySelector('button[type="submit"]');
     const feedbackMessage = document.getElementById("feedback-message");
   
-    submitButton.disabled = true; // Disable the submit button
+    // submitButton.disabled = true; Disable the submit button
     feedbackMessage.style.display = "block"; // Show the feedback message
   
     try {
@@ -401,7 +401,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const submitButton = event.target.querySelector('button[type="submit"]');
     const feedbackMessage = document.getElementById("feedback-message");
   
-    submitButton.disabled = true; // Disable the submit button
+    //submitButton.disabled = true; Disable the submit button
     feedbackMessage.style.display = "block"; // Show the feedback message
   
     try {
